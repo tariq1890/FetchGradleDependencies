@@ -1,3 +1,5 @@
+package com.tariq.example;
+
 import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProjectConnection;
 import org.gradle.tooling.model.ExternalDependency;
