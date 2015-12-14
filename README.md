@@ -1,6 +1,6 @@
 <b>FetchGradleDependencies</b>
 
-Sample Project to retrieve the external dependencies of a Gradle Project. Only Eclipse and Idea Gradle Projects are supported.
+Sample Project to retrieve the external dependencies of a Gradle Project.
 
 To run the program
 
