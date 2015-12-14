@@ -6,4 +6,4 @@ To run the program
 
 Please provide the following VM argument
 
-targetProject - contains dorectory path of target Gradle Project
+targetProject - specified directory path of target Gradle Project
