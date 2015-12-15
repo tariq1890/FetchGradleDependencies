@@ -24,17 +24,14 @@ public class GradleInvoke {
 
         try {
             connection = connector.connect();
-            StringBuilder gradleClasspath = new StringBuilder();
 
             EclipseProject eclipseProject = connection.getModel(EclipseProject.class);
-            for (ExternalDependency externalDependency : eclipseProject.getClasspath()) {
-                gradleClasspath.append(externalDependency.getFile().getAbsolutePath() + File.pathSeparator);
-            }
+            String gradleClasspath = getClassPathFromProject(eclipseProject);
 
             PrintWriter pw = null;
             try {
                 pw = new PrintWriter("classpath.cp");
-                pw.write(gradleClasspath.toString());
+                pw.write(gradleClasspath);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -46,8 +43,23 @@ public class GradleInvoke {
                 connection.close();
             }
         }
-
     }
 
+    private static String getClassPathFromProject(final EclipseProject eclipseProject) {
+
+        StringBuilder gradleClasspath = new StringBuilder();
+        for (ExternalDependency externalDependency : eclipseProject.getClasspath()) {
+            gradleClasspath.append(externalDependency.getFile().getAbsolutePath() + File.pathSeparator);
+        }
+
+        if (!eclipseProject.getChildren().isEmpty()) {
+            for (EclipseProject childProject : eclipseProject.getChildren()) {
+                gradleClasspath.append(getClassPathFromProject(childProject));
+            }
+        }
+        return gradleClasspath.toString();
+    }
 
 }
+
+
